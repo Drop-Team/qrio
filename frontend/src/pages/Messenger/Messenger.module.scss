@@ -1,3 +1,35 @@
 .messenger {
+  .account {
+    padding: 2px;
 
+    .nickname-input {
+      width: 100%;
+    }
+  }
+
+  .messages-container {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+  }
+
+  .message-container {
+    position: fixed;
+    bottom: 0;
+
+    margin-top: auto;
+
+    width: 100%;
+
+    padding: 2px;
+
+    display: flex;
+    gap: 4px;
+
+    align-items: center;
+
+    .message-input {
+      width: 100%;
+    }
+  }
 }
