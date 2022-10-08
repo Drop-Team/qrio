@@ -5,7 +5,7 @@ import { Chat } from "types/Chat";
 interface ChatDTO {
   id: string,
   name: string
-  messages: Array<{ id: string, text: string, name: string, created: Date }>
+  messages: Array<{ id: string, text: string, created: Date }>
 }
 
 export const useMessengerAPI = (id: string = "") => {
@@ -40,9 +40,9 @@ export const useMessengerAPI = (id: string = "") => {
       });
   }
 
-  // useEffect(() => {
-  //  fetchChat();
-  // }, [id, messageSentFlag])
+  useEffect(() => {
+    fetchChat();
+  }, [id, messageSentFlag])
 
   return [chat, fetchChat, sendMessage] as const;
 }
