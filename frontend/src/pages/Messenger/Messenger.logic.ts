@@ -31,7 +31,7 @@ export const useMessengerLogic = (props: MessengerProps) => {
       }
 
       const sendClickHandler = () => {
-        sendMessage(nickname, message);
+        sendMessage(message);
         // messageInputRef.current?.focus();
       }
 
