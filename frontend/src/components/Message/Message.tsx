@@ -1,14 +1,23 @@
 import React from "react";
 import styles from "./Message.module.scss";
+import { MessageType } from "../../types/Chat";
+import {useUserID} from "../../hooks/useUserID";
+import {formatTime} from "../../utils/formatTime";
 
-export interface MessageProps {}
+export interface MessageProps {
+  message : MessageType
+}
 
 export const Message:React.FC<MessageProps> = (props) => {
-  return <div className={styles["message-incoming"]}>
+  const userID = useUserID();
+
+  const isMine = userID === props.message.userID;
+
+  return <div className={styles[`message-${isMine ? "mine" : "incoming"}`]}>
     <div className={styles["message-header"]}>
       <div className={styles["message-nickname"]}>Владимир Ильич</div>
-      <div className={styles["message-time"]}>13:37</div>
+      <div className={styles["message-time"]}>{formatTime(props.message.created)}</div>
     </div>
-    <div>Широкая электрификация южных губерний даст мощный толчок подъему сельского хозяйства</div>
+    <div>{props.message.text}</div>
   </div>
 }
