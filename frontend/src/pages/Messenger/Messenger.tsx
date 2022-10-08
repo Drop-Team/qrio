@@ -9,13 +9,13 @@ export interface MessengerProps {}
 
 export const Messenger:React.FC<MessengerProps> = (props) => {
   const logic = useMessengerLogic(props);
-  const [
+  const {
     chat,
     message,
-    getInputHandler,
+    getChangeHandler,
     sendClickHandler,
     messageInputRef
-  ] = logic.useMessenger();
+  } = logic.useMessenger();
 
   return <>
     {
@@ -42,7 +42,7 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
                 minRows={1}
                 maxRows={4}
                 value={message}
-                onChange={getInputHandler("message")}
+                onChange={getChangeHandler("message")}
               />
               <ActionIcon size={"lg"} variant={"filled"} color={"indigo"} onClick={sendClickHandler}>
                 <IconSend/>

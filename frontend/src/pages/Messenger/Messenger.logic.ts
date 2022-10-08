@@ -31,14 +31,14 @@ export const useMessengerLogic = (props: MessengerProps) => {
         messageInputRef.current?.focus();
       }
 
-      return [
+      return {
         chat,
         message,
         getChangeHandler,
         fetchMessages,
         sendClickHandler,
         messageInputRef
-      ] as const;
+      } as const;
     }
   }
 }

@@ -17,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    gap: 1rem;
 
     .message-nickname {
       margin-bottom: 0.25rem;
@@ -25,7 +26,7 @@
 
     .message-time {
       font-size: 0.75em;
-      margin-right: 1ch;
+      margin-right: 0.5rem;
     }
   }
 }
