@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./Messenger.module.scss";
 import { Textarea, ActionIcon, Header, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
@@ -13,7 +13,7 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
   const logic = useMessengerLogic(props);
   const {
     chat,
-    message,
+    newMessage,
     getChangeHandler,
     sendClickHandler,
     messageInputRef
@@ -49,8 +49,8 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
                 autosize
                 minRows={1}
                 maxRows={4}
-                value={message}
-                onChange={getChangeHandler("message")}
+                value={newMessage}
+                onChange={getChangeHandler("newMessage")}
               />
               <ActionIcon size={"lg"} variant={"filled"} color={"indigo"} onClick={sendClickHandler}>
                 <IconSend/>
