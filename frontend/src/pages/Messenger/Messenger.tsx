@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Messenger.module.scss";
-import { Textarea, ActionIcon, TextInput, Header, Title, Text, LoadingOverlay } from "@mantine/core";
+import { Textarea, ActionIcon, Header, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
 import { useMessengerLogic } from "pages/Messenger/Messenger.logic";
 import { useNameGenerator } from "hooks/useNameGenerator";
@@ -15,7 +15,6 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
     chat,
     newMessage,
     getInputHandler,
-    fetchMessage,
     sendClickHandler,
     messageInputRef
   ] = logic.useMessenger();
@@ -38,7 +37,7 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
           <div className={styles["messenger"]}>
 
             <div className={styles["messages-container"]}>
-              <Message></Message>
+              {chat.messages.map((message) => <Message message={message}></Message>)}
             </div>
 
             <div className={styles["new-message-container"]}>

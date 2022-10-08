@@ -1,4 +1,4 @@
-import { API_URL } from "hooks/consts";
+import { API_URL } from "consts";
 import { useEffect, useState } from "react";
 import { Chat } from "types/Chat";
 import { useUserID } from "./useUserID";
@@ -6,7 +6,7 @@ import { useUserID } from "./useUserID";
 interface ChatDTO {
   id: string,
   name: string
-  messages: Array<{ userID: string, text: string, created: Date }>
+  messages: Array<{ userID: string, text: string, created: string }>
 }
 
 export const useMessengerAPI = (id: string = "") => {
@@ -19,8 +19,12 @@ export const useMessengerAPI = (id: string = "") => {
       .then((res) => res.text())
       .then((res) => JSON.parse(res) as ChatDTO)
       .then((res) => {
-        setChat(res);
-      });
+        return {
+          ...res,
+          messages: res.messages.map((message) => ({...message, created : new Date(message.created)}))
+        } as Chat
+      })
+      .then(setChat);
   }
 
   const sendMessage = (message: string) => {

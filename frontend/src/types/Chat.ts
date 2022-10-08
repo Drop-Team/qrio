@@ -1,4 +1,4 @@
-export interface Message {
+export interface MessageType {
   userID: string;
   text: string;
   created: Date;
@@ -7,5 +7,5 @@ export interface Message {
 export interface Chat {
   name: string;
   id: string;
-  messages: Message[];
+  messages: MessageType[];
 }
