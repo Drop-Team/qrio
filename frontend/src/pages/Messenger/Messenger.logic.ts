@@ -7,17 +7,17 @@ export const useMessengerLogic = (props: MessengerProps) => {
   const { id } = useParams();
   return {
     useMessenger: () => {
-      const [message, setMessage] = useState<string>("");
+      const [newMessage, setNewMessage] = useState<string>("");
 
       const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
       const [chat, fetchMessages, sendMessage] = useMessengerAPI(id);
 
-      const getChangeHandler = (field: "message") => {
+      const getChangeHandler = (field: "newMessage") => {
         let setState: CallableFunction;
         switch (field) {
-          case "message":
-            setState = setMessage;
+          case "newMessage":
+            setState = setNewMessage;
             break;
         }
 
@@ -27,13 +27,13 @@ export const useMessengerLogic = (props: MessengerProps) => {
       }
 
       const sendClickHandler = () => {
-        sendMessage(message);
+        sendMessage(newMessage);
         messageInputRef.current?.focus();
       }
 
       return {
         chat,
-        message,
+        newMessage,
         getChangeHandler,
         fetchMessages,
         sendClickHandler,

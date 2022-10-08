@@ -1,3 +1,10 @@
+import {v4 as uuidv4} from 'uuid';
+
 export const useUserID = () => {
-    return "45365757-ab87-492f-8460-ab10333ffd51"
+    const userID = window.localStorage.getItem('userID');
+    if (userID !== null) return userID.toString();
+
+    const uuid = uuidv4();
+    localStorage.setItem('userID', uuid.toString());
+    return uuid.toString();
 }
