@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Messenger.module.scss";
 import { Textarea, ActionIcon, TextInput, Header, Title, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
 import { useMessengerLogic } from "pages/Messenger/Messenger.logic";
+import { useNameGenerator } from "hooks/useNameGenerator";
+import { useUserID } from "hooks/useUserID";
 
 export interface MessengerProps {}
 
@@ -10,12 +12,18 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
   const logic = useMessengerLogic(props);
   const [
     chat,
-    message,
+    newMessage,
     getInputHandler,
     fetchMessage,
     sendClickHandler,
     messageInputRef
   ] = logic.useMessenger();
+
+  const [generateName] = useNameGenerator();
+  const userID = useUserID();
+  useEffect(() => {
+    generateName(userID);
+  }, []);
 
   return <>
     {
@@ -38,17 +46,17 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
               </div>
             </div>
 
-            <div className={styles["message-container"]}>
+            <div className={styles["new-message-container"]}>
               <Textarea
                 ref={messageInputRef}
-                className={styles["message-input"]}
+                className={styles["new-message-input"]}
                 size={"xs"}
                 placeholder="Message"
                 autosize
                 minRows={1}
                 maxRows={4}
-                value={message}
-                onChange={getInputHandler("message")}
+                value={newMessage}
+                onChange={getInputHandler("newMessage")}
               />
               <ActionIcon size={"lg"} variant={"filled"} color={"indigo"} onClick={sendClickHandler}>
                 <IconSend/>
