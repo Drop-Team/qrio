@@ -3,7 +3,6 @@ import styles from "./Messenger.module.scss";
 import { Textarea, ActionIcon, Header, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
 import { useMessengerLogic } from "pages/Messenger/Messenger.logic";
-import { useNameGenerator } from "hooks/useNameGenerator";
 import { useUserID } from "hooks/useUserID";
 import {Message} from "components/Message";
 
@@ -18,12 +17,6 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
     sendClickHandler,
     messageInputRef
   } = logic.useMessenger();
-
-  const [generateName] = useNameGenerator();
-  const userID = useUserID();
-  useEffect(() => {
-    generateName(userID);
-  }, []);
 
   return <>
     {

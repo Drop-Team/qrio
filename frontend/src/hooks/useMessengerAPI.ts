@@ -6,7 +6,7 @@ import { useUserID } from "./useUserID";
 interface ChatDTO {
   id: string,
   name: string
-  messages: Array<{ userID: string, text: string, created: string }>
+  messages: Array<{ user_id: string, text: string, created: string }>
 }
 
 export const useMessengerAPI = (id: string = "") => {
@@ -21,7 +21,12 @@ export const useMessengerAPI = (id: string = "") => {
       .then((res) => {
         return {
           ...res,
-          messages: res.messages.map((message) => ({...message, created : new Date(message.created)}))
+          messages: res.messages.map((message) => (
+              {
+                ...message,
+                created : new Date(message.created),
+                userID: message.user_id,
+              })),
         } as Chat
       })
       .then(setChat);
@@ -36,7 +41,7 @@ export const useMessengerAPI = (id: string = "") => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ userID, text: message })
+      body: JSON.stringify({ user_id: userID, text: message })
     })
       .then((res) => res.text())
       .then((res) => JSON.parse(res) as string)
