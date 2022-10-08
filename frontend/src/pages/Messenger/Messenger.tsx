@@ -3,6 +3,7 @@ import styles from "./Messenger.module.scss";
 import { Textarea, ActionIcon, TextInput, Header, Title, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
 import { useMessengerLogic } from "pages/Messenger/Messenger.logic";
+import {Message} from "../../components/Message";
 
 export interface MessengerProps {}
 
@@ -29,13 +30,7 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
           <div className={styles["messenger"]}>
 
             <div className={styles["messages-container"]}>
-              <div className={styles["message-incoming"]}>
-                <div className={styles["message-header"]}>
-                  <div className={styles["message-nickname"]}>Владимир Ильич</div>
-                  <div className={styles["message-time"]}>13:37</div>
-                </div>
-                <div>Широкая электрификация южных губерний даст мощный толчок подъему сельского хозяйства</div>
-              </div>
+              <Message></Message>
             </div>
 
             <div className={styles["message-container"]}>
