@@ -22,8 +22,8 @@ export const useMessengerAPI = (id: string = "") => {
       });
   }
 
-  const sendMessage = (nickname: string, message: string) => {
-    if (nickname == "" || message == "") return;
+  const sendMessage = (message: string) => {
+    if (message == "") return;
 
     fetch(API_URL+"chats/"+id+"/messages/", {
       method: "POST",
@@ -31,7 +31,7 @@ export const useMessengerAPI = (id: string = "") => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ user: nickname, text: message })
+      body: JSON.stringify({ text: message })
     })
       .then((res) => res.text())
       .then((res) => JSON.parse(res) as string)

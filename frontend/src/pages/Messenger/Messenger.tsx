@@ -11,7 +11,6 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
   const [
     chat,
     message,
-    nickname,
     getInputHandler,
     fetchMessage,
     sendClickHandler,
@@ -29,25 +28,15 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
           </Header>
           <div className={styles["messenger"]}>
 
-            <div className={styles["account"]}>
-              <TextInput
-                size={"sm"}
-                placeholder={"Nickname"}
-                value={nickname}
-                onChange={getInputHandler("nickname")}
-                error={!nickname}
-              />
+            <div className={styles["messages-container"]}>
+              <div className={styles["message-incoming"]}>
+                <div className={styles["message-header"]}>
+                  <div className={styles["message-nickname"]}>Владимир Ильич</div>
+                  <div className={styles["message-time"]}>13:37</div>
+                </div>
+                <div>Широкая электрификация южных губерний даст мощный толчок подъему сельского хозяйства</div>
+              </div>
             </div>
-
-      <div className={styles["messages-container"]}>
-        <div className={styles["message-incoming"]}>
-          <div className={styles["message-header"]}>
-            <div className={styles["message-nickname"]}>Владимир Ильич</div>
-            <div className={styles["message-time"]}>13:37</div>
-          </div>
-          <div>Широкая электрификация южных губерний даст мощный толчок подъему сельского хозяйства</div>
-        </div>
-      </div>
 
             <div className={styles["message-container"]}>
               <Textarea
