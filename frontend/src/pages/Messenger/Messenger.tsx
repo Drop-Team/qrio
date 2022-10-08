@@ -1,45 +1,69 @@
 import React, { useState } from "react";
 import styles from "./Messenger.module.scss";
-import { Textarea, ActionIcon, TextInput, Header, Title, Text } from "@mantine/core";
+import { Textarea, ActionIcon, TextInput, Header, Title, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
 import { useMessengerLogic } from "pages/Messenger/Messenger.logic";
 
-export interface MessengerProps {
-
-}
+export interface MessengerProps {}
 
 export const Messenger:React.FC<MessengerProps> = (props) => {
   const logic = useMessengerLogic(props);
-
-  const [message, setMessage] = useState<string>("");
+  const [
+    chat,
+    message,
+    nickname,
+    getInputHandler,
+    fetchMessage,
+    sendClickHandler,
+    messageInputRef
+  ] = logic.useMessenger();
 
   return <>
-    <Header height={60} p="md">
-      <Text size={"xl"}>Chat name</Text>
-    </Header>
-    <div className={styles["messenger"]}>
+    {
+      !chat ? (
+        <LoadingOverlay visible overlayBlur={2}/>
+      ) : (
+        <>
+          <Header height={60} p="md">
+            <Text size={"xl"}>{ chat.name }</Text>
+          </Header>
+          <div className={styles["messenger"]}>
 
-      <div className={styles["account"]}>
-        <TextInput size={"sm"} placeholder={"Nickname"}></TextInput>
-      </div>
+            <div className={styles["account"]}>
+              <TextInput
+                size={"sm"}
+                placeholder={"Nickname"}
+                value={nickname}
+                onChange={getInputHandler("nickname")}
+                error={!nickname}
+              />
+            </div>
 
-      <div className={styles["messages-container"]}>
+            <div className={styles["messages-container"]}>
+              { chat.messages.map((e) => (
+                <Text>{ e.text }</Text>
+              )) }
+            </div>
 
-      </div>
-
-      <div className={styles["message-container"]}>
-        <Textarea
-          className={styles["message-input"]}
-          size={"xs"}
-          placeholder="Message"
-          autosize
-          minRows={1}
-          maxRows={4}
-        />
-        <ActionIcon size={"lg"} variant={"filled"} color={"indigo"}>
-          <IconSend></IconSend>
-        </ActionIcon>
-      </div>
-    </div>
+            <div className={styles["message-container"]}>
+              <Textarea
+                ref={messageInputRef}
+                className={styles["message-input"]}
+                size={"xs"}
+                placeholder="Message"
+                autosize
+                minRows={1}
+                maxRows={4}
+                value={message}
+                onChange={getInputHandler("message")}
+              />
+              <ActionIcon size={"lg"} variant={"filled"} color={"indigo"} onClick={sendClickHandler}>
+                <IconSend/>
+              </ActionIcon>
+            </div>
+          </div>
+        </>
+      )
+    }
   </>
 }
