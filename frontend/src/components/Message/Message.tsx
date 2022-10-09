@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Message.module.scss";
-import {MessageType} from "../../types/Chat";
-import {useUserID} from "../../hooks/useUserID";
-import {formatTime} from "../../utils/formatTime";
-import {generateName} from "../../utils/generateName";
+import { MessageType } from "../../types/Chat";
+import { useUserID } from "../../hooks/useUserID";
+import { formatTime } from "../../utils/formatTime";
+import { generateName } from "../../utils/generateName";
 
 export interface MessageProps {
   message : MessageType

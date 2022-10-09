@@ -52,7 +52,14 @@ export const useMessengerAPI = (id: string = "") => {
 
   useEffect(() => {
     fetchChat();
-  }, [id, messageSentFlag])
+  }, [id, messageSentFlag]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchChat();
+    }, 5000);
+    return () => {clearInterval(interval)};
+  }, []);
 
   return [chat, fetchChat, sendMessage] as const;
 }
