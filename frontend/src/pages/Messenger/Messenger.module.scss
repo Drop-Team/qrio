@@ -1,6 +1,14 @@
 @import "styles/open-color.scss";
 
 .messenger {
+
+  display: flex;
+  flex-direction: column;
+
+  height: calc(100% - 2px);
+
+  justify-items: stretch;
+
   .account {
     padding: 2px;
 
@@ -12,19 +20,18 @@
   .messages-container {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+
     overflow-x: hidden;
+
     gap: 0.5rem;
 
     padding: 1rem;
   }
 
   .new-message-container {
-    bottom: 0;
-
     margin-top: auto;
 
-    width: 100%;
+    width: inherit;
 
     padding: 2px;
 
