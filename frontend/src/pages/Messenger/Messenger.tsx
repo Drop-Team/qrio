@@ -38,7 +38,6 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
               "padding-right": "8px"
             }
           }}>
-          <DebugDrawer/>
           <Header height={60} p="md">
             <Text size={"xl"}>{ chat.name }</Text>
           </Header>
