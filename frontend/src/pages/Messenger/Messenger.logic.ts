@@ -1,15 +1,18 @@
 import { MessengerProps } from "pages/Messenger/Messenger";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMessengerAPI } from "hooks/useMessengerAPI";
+import { usePrevious, useToggle } from "@mantine/hooks";
 
 export const useMessengerLogic = (props: MessengerProps) => {
   const { id } = useParams();
   return {
     useMessenger: () => {
       const [newMessage, setNewMessage] = useState<string>("");
+      const [scrolled, setScrolled] = useState<boolean>(false);
 
       const messageInputRef = useRef<HTMLTextAreaElement>(null);
+      const messagesScrollRef = useRef<HTMLDivElement>(null);
 
       const [chat, fetchMessages, sendMessage] = useMessengerAPI(id);
 
@@ -26,10 +29,23 @@ export const useMessengerLogic = (props: MessengerProps) => {
         }
       }
 
+      const scrollDown = () => {
+        messagesScrollRef.current?.scrollTo({ top: messagesScrollRef.current.scrollHeight });
+      }
+
       const sendClickHandler = () => {
         sendMessage(newMessage);
         messageInputRef.current?.focus();
+        setNewMessage("");
+        setScrolled(false);
       }
+
+      useEffect(() => {
+        if (!scrolled && chat !== undefined) {
+          setScrolled(true);
+          scrollDown();
+        }
+      }, [chat]);
 
       return {
         chat,
@@ -37,7 +53,8 @@ export const useMessengerLogic = (props: MessengerProps) => {
         getChangeHandler,
         fetchMessages,
         sendClickHandler,
-        messageInputRef
+        messageInputRef,
+        messagesScrollRef
       } as const;
     }
   }
