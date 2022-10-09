@@ -1,24 +1,21 @@
 import React from "react";
-import styles from "./Message.module.scss";
-import { MessageType } from "../../types/Chat";
-import { useUserID } from "../../hooks/useUserID";
-import { formatTime } from "../../utils/formatTime";
-import { generateName } from "../../utils/generateName";
+import { MessageType } from "types/Chat";
+import { useUserID } from "hooks/useUserID";
+import {PlainMessage} from "components/Message/PlainMessage";
+import {generateName} from "utils/generateName";
+
 
 export interface MessageProps {
   message : MessageType
 }
 
 export const Message:React.FC<MessageProps> = (props) => {
-  const userID = useUserID();
+  const isMine = useUserID() === props.message.userID;
 
-  const isMine = userID === props.message.userID;
-
-  return <div className={styles[`message-${isMine ? "mine" : "incoming"}`]}>
-    <div className={styles["message-header"]}>
-      <div className={styles["message-nickname"]}>{generateName(props.message.userID)}</div>
-      <div className={styles["message-time"]}>{formatTime(props.message.created)}</div>
-    </div>
-    <div>{props.message.text}</div>
-  </div>
+  return <PlainMessage
+      messageKind={isMine ? "mine" : "incoming"}
+      text={props.message.text}
+      username={generateName(props.message.userID)}
+      time={props.message.created}
+  />
 }

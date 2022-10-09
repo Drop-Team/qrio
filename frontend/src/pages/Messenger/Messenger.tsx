@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Messenger.module.scss";
 import { Textarea, ActionIcon, Header, Text, LoadingOverlay } from "@mantine/core";
 import { IconSend } from "@tabler/icons";
 import { useMessengerLogic } from "pages/Messenger/Messenger.logic";
-import { useUserID } from "hooks/useUserID";
 import {Message} from "components/Message";
+import {EmptyChatMessage} from "prefabs/systemMessages";
+import {DebugDrawer} from "components/DebugDrawer";
 
 export interface MessengerProps {}
 
@@ -24,13 +25,17 @@ export const Messenger:React.FC<MessengerProps> = (props) => {
         <LoadingOverlay visible overlayBlur={2}/>
       ) : (
         <>
+          <DebugDrawer/>
           <Header height={60} p="md">
             <Text size={"xl"}>{ chat.name }</Text>
           </Header>
           <div className={styles["messenger"]}>
 
             <div className={styles["messages-container"]}>
-              {chat.messages.map((message) => <Message message={message}></Message>)}
+              {chat.messages.length === 0 ? <EmptyChatMessage/> : <></>}
+              {chat.messages.map((message) =>
+                  <Message message={message} key={message.created.getMilliseconds()}></Message>
+              )}
             </div>
 
             <div className={styles["new-message-container"]}>

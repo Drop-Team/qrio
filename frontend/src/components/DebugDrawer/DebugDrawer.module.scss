@@ -1,0 +1,57 @@
+@import "styles/open-color";
+
+@mixin background {
+  background-color: $oc-gray-7;
+  opacity: 0.95;
+}
+
+.debug-drawer {
+  @include background;
+  position: fixed;
+  height: 100px;
+  width: 100vw;
+
+  transition: transform 250ms;
+
+  z-index: 999;
+
+  padding: 1rem;
+
+  font-family: 'Source Sans Pro', sans-serif;
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: $oc-gray-1;
+  }
+
+  .puller {
+    svg {
+      margin-bottom: -4px;
+      transition: transform 250ms;
+    }
+    @include background;
+    color: white;
+    position: absolute;
+    cursor: pointer;
+
+    $icon-size: 24px;
+    $padding: 5px;
+
+    padding: $padding;
+
+    bottom: -($icon-size + 2 * $padding);
+    right: ($icon-size + $padding);
+  }
+}
+
+.debug-drawer-contracted {
+  @extend .debug-drawer;
+  transform: translateY(-100%);
+
+  .puller {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
